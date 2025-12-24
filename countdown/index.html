@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Countdown</title>
+
+<link rel="stylesheet" href="../css/base.css">
+
+<style>
+/* 3️⃣ themes */
+.theme-minimal {
+  --fg: #111;
+}
+
+.theme-mono {
+  --font: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.theme-neon {
+  --fg: #00f6ff;
+  text-shadow: 0 0 8px #00f6ff;
+}
+</style>
+</head>
+<body>
+
+<div id="root" class="widget">
+  <span id="label" class="label"></span>
+  <span id="timer">Loading…</span>
+</div>
+
+<script>
+/* params */
+const params = new URLSearchParams(window.location.search);
+
+const date = params.get("date");           // required
+const time = params.get("time") || "00:00"; // 1️⃣ optional time
+const label = params.get("label");          // 2️⃣ optional label
+const theme = params.get("theme") || "minimal"; // 3️⃣ theme
+
+if (!date) {
+  document.body.innerText = "Missing ?date=YYYY-MM-DD";
+  throw new Error("No date provided");
+}
+
+/* apply theme */
+document.body.classList.add(`theme-${theme}`);
+
+/* apply label */
+if (label) {
+  document.getElementById("label").innerText = label + " ·";
+}
+
+/* target datetime */
+const target = new Date(`${date}T${time}:00`);
+
+function tick() {
+  const diff = target - new Date();
+
+  if (diff <= 0) {
+    timer.innerText = "🚀 Time reached";
+    return;
+  }
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  const s = Math.floor(diff / 1000) % 60;
+
+  timer.innerText = `${d}d ${h}h ${m}m ${s}s`;
+}
+
+setInterval(tick, 1000);
+tick();
+</script>
+
+</body>
+</html>
+

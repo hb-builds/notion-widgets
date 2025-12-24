@@ -1,0 +1,29 @@
+:root {
+  --font: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --fg: #111;
+  --bg: transparent;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font);
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.widget {
+  display: flex;
+  gap: 0.5ch;
+  align-items: baseline;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.label {
+  opacity: 0.6;
+  font-size: 0.8em;
+}
